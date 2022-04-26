@@ -3,4 +3,4 @@ This is the first project (P0)
 
 Description
 
-I am planning to work on Banking Application Detailsand will provide its detail as soon as possible.
+I am planning to work on Banking Application Details. More description will be added soon.

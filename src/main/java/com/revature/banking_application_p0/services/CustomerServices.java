@@ -1,6 +1,8 @@
 package com.revature.banking_application_p0.services;
 
 import com.revature.banking_application_p0.daos.CustomerDao;
+import com.revature.banking_application_p0.exceptions.InvalidRequestException;
+import com.revature.banking_application_p0.exceptions.ResourcePersistantException;
 import com.revature.banking_application_p0.models.Customer;
 import com.revature.banking_application_p0.util.ConnectionFactory;
 
@@ -14,11 +16,11 @@ public class CustomerServices {
         customerDao.checkEmail(email);
         return false;
     }
-    public boolean registerCustomer(Customer newCustomer){
+    public boolean registerCustomer(Customer newCustomer) throws InvalidRequestException {
         System.out.println("Customer trying to be registered: " + newCustomer);
         if(!validateCustomerInput(newCustomer)){ // checking if false
             System.out.println("User was not validated");
-            throw new RuntimeException();
+            throw new InvalidRequestException("User input was not validated either empty string or null values.");
         }
        validateEmailNotUsed(newCustomer.getEmail());
 
@@ -32,7 +34,7 @@ public class CustomerServices {
         customerDao.delete(conn, "customer", "asrat");*/
 
         if(persistedCustomer == null){
-            throw new RuntimeException();
+            throw new ResourcePersistantException("Customer was not persisted to the database upon registration.");
         }
         System.out.println("Customers has been persisted: " + newCustomer);
         return true;
